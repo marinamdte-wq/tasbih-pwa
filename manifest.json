@@ -1,0 +1,56 @@
+{
+  "name": "Luxury Pearl Tasbih - Aplikasi Zikir Islami",
+  "short_name": "Pearl Tasbih",
+  "description": "Aplikasi tasbih digital dengan desain mewah untuk membantu Anda dalam zikir dan doa harian",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#b28a3e",
+  "background_color": "#fffef9",
+  "categories": ["lifestyle", "productivity"],
+  "screenshots": [
+    {
+      "src": "icons/screenshot-1.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "icons/screenshot-2.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Tasbih",
+      "short_name": "Tasbih",
+      "description": "Mulai zikir Subhanallah",
+      "url": "./?zikir=0",
+      "icons": [{"src": "icons/icon-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Istighfar",
+      "short_name": "Istighfar",
+      "description": "Mulai zikir Astaghfirullah",
+      "url": "./?zikir=4",
+      "icons": [{"src": "icons/icon-192x192.png", "sizes": "192x192"}]
+    }
+  ]
+}

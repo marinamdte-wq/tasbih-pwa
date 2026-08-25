@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#b28a3e">
+<meta name="description" content="Luxury Pearl Tasbih - Aplikasi zikir islami dengan antarmuka mewah">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tasbih">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
+<link rel="apple-touch-icon" href="icons/icon-192x192.png">
+<title>Luxury Pearl Tasbih</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 8%,#fffef9,#f5e5bd 48%,#b28a3e);font-family:Georgia,serif;color:#65491a;display:flex;justify-content:center;align-items:center}
+.app{width:100%;max-width:460px;text-align:center;padding:18px}
+.brand{font:10px Arial;letter-spacing:3px;color:#9b7938;text-transform:uppercase}
+h1{margin:5px 0;background:linear-gradient(90deg,#73521a,#d5b365,#73521a);-webkit-background-clip:text;color:transparent;font-size:32px}
+.sub{font-size:12px;color:#98763a;margin-bottom:10px}
+.menu{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.menu button,.controls button{border:1px solid #c4a052;background:#fffdf8;color:#684d1d;border-radius:20px;padding:9px 11px;font-weight:bold;box-shadow:0 4px 10px #5a401c22}
+.menu button.active{background:linear-gradient(135deg,#e7ce8b,#a97c2d);color:white}
+.menu button.done{background:linear-gradient(135deg,#f5df9f,#d1a94f,#f0d27f)!important;color:#5e4315!important;border-color:#b68a32!important;box-shadow:0 0 22px #d9b45c,0 4px 12px #7a541c33}
+.zikir{height:64px;margin:8px 0;font-size:22px;font-weight:bold;line-height:1.5}
+.zikir small{font:12px Arial;color:#96753a}
+.tasbih{width:360px;height:360px;position:relative;margin:auto}
+.ring{position:absolute;inset:15px;border:2px solid #b58b3d;border-radius:50%;box-shadow:0 0 0 7px #fff6,inset 0 0 24px #79551e22}
+.pearl-layer{position:absolute;inset:0}
+.pearl{position:absolute;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 28% 22%,#fff,#fffdf4 20%,#efe0bd 48%,#c8ad73 76%,#8f6b32);border:1px solid #b08a48;box-shadow:inset 3px 3px 5px #fff,inset -5px -5px 7px #60451f55,0 4px 8px #4c351544;transition:transform .18s,box-shadow .18s;cursor:pointer}
+.pearl.active{transform:scale(1.42);box-shadow:0 0 25px #ffe291,inset 3px 3px 5px #fff,0 5px 10px #65481e55}
+.pearl.pink{background:radial-gradient(circle at 28% 22%,#fff,#fff2f7 20%,#efbfd2 48%,#d57f9e 76%,#92506b)}
+.pearl.blue{background:radial-gradient(circle at 28% 22%,#fff,#effbff 20%,#bddfe9 48%,#76b6c9 76%,#4a8297)}
+.pearl.green{background:radial-gradient(circle at 28% 22%,#fff,#f0fff6 20%,#c1e0ca 48%,#7bb18b 76%,#49755a)}
+.pearl.gold{background:radial-gradient(circle at 28% 22%,#fff,#fff7da 20%,#eed27e 48%,#c19637 76%,#815c17)}
+.pearl.black{background:radial-gradient(circle at 28% 22%,#fff,#d9d9d9 14%,#666 42%,#252525 76%,#080808)}
+.pearl.red{background:radial-gradient(circle at 28% 22%,#fff,#fff0f0 20%,#efaaaa 48%,#d45454 76%,#8d2020)}
+.center{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);width:154px;height:154px;border-radius:50%;background:radial-gradient(circle at 35% 23%,#fff,#f3dfb1 68%,#c8a258);border:5px solid #b99043;box-shadow:0 14px 30px #563b1644,inset 0 0 20px #8d672622;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.count{font:700 46px Arial;color:#674b1b}.target{font-size:12px;color:#8d6b31}
+.controls{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:3px}.controls button{border:0}
+.auto{background:linear-gradient(135deg,#e4ca83,#a5792b)!important;color:white!important}
+.info{font:12px Arial;color:#87672e;margin-top:9px}
+.colors{display:flex;justify-content:center;gap:7px;margin-top:9px}
+.color{width:33px;height:33px;border-radius:50%;border:1px solid #b89652;background:#fff;cursor:pointer}.color.sel{outline:2px solid #a37b2d;outline-offset:2px}
+.status{font:12px Arial;color:#8b6b34;margin-top:8px}
+.install-btn{display:inline-block;margin-top:12px;padding:8px 16px;background:linear-gradient(135deg,#e4ca83,#a5792b);color:white;border:none;border-radius:20px;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px #5a401c22}
+.install-btn:hover{transform:scale(1.05)}
+@media(max-width:390px){.tasbih{transform:scale(.9);margin:-15px auto}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="brand">✦ Premium Zikir Collection ✦</div>
+<h1>📿 Luxury Pearl Tasbih</h1>
+<div class="sub">Champagne Gold • Ivory Pearl</div>
+<div class="menu">
+<button class="active" data-i="0">📿 Tasbih</button>
+<button data-i="1">🤲 Tahmid</button>
+<button data-i="2">🕋 Takbir</button>
+<button data-i="3">❤️ Selawat</button>
+<button data-i="4">🤍 Istighfar</button>
+</div>
+<div class="zikir" id="zikir"></div>
+<div class="tasbih"><div class="ring"></div><div class="pearl-layer" id="pearlLayer"></div><div class="center"><div class="count" id="count">0</div><div class="target" id="target">daripada 33</div></div></div>
+<div style="font:700 11px Arial;letter-spacing:2px;color:#9a7836;margin:-2px 0 7px">33 PEARLS</div>
+<div class="controls"><button id="countBtn">📿 Kira</button><button id="autoBtn" class="auto">▶ Auto</button><button id="resetBtn">↻ Reset</button></div>
+<button id="installBtn" class="install-btn" style="display:none">⬇️ Pasang Aplikasi</button>
+<div style="margin-top:9px">
+<a href="https://t.me/sayangirasulullah" target="_blank" rel="noopener"
+style="display:inline-block;text-decoration:none;border:1px solid #c4a052;background:#fffdf8;color:#684d1d;border-radius:20px;padding:9px 14px;font:700 13px Arial;box-shadow:0 4px 10px #5a401c22">
+💛 Sayangi Rasulullah
+</a>
+</div>
+<div class="info">📿 33 &nbsp; 🤲 33 &nbsp; 🕋 33 &nbsp; ❤️ 100 &nbsp; 🤍 1000</div>
+<div class="colors">
+<button class="color sel" data-c="white">🤍</button><button class="color" data-c="pink">🩷</button><button class="color" data-c="blue">🩵</button><button class="color" data-c="green">💚</button><button class="color" data-c="gold">✨</button><button class="color" data-c="black">🖤</button><button class="color" data-c="red">❤️</button>
+</div>
+<div class="status" id="status">Tekan Kira atau Auto 🤍</div>
+</div>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(err=>console.log('SW registration failed'));
+}
+
+let deferredPrompt;
+const installBtn=document.getElementById('installBtn');
+
+window.addEventListener('beforeinstallprompt',(e)=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  installBtn.style.display='inline-block';
+});
+
+installBtn.addEventListener('click',async()=>{
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    const {outcome}=await deferredPrompt.userChoice;
+    console.log(`User response: ${outcome}`);
+    deferredPrompt=null;
+    installBtn.style.display='none';
+  }
+});
+
+const Z=[["سُبْحَانَ اللَّهِ","Subhanallah",33,1000],["الْحَمْدُ لِلَّهِ","Alhamdulillah",33,1000],["اللَّهُ أَكْبَرُ","Allahu Akbar",33,1000],["اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ","Allahumma salli 'ala Muhammad",100,1200],["أَسْتَغْفِرُ اللَّهَ","Astaghfirullah",1000,1000]];
+let si=0,n=0,auto=false,timer=null,voice=null;
+const layer=document.getElementById("pearlLayer"),count=document.getElementById("count"),target=document.getElementById("target"),zikir=document.getElementById("zikir"),status=document.getElementById("status");
+function pearls(){
+ layer.innerHTML="";
+ const cx=180,cy=180,r=157;
+ for(let i=0;i<33;i++){
+  const a=(i*360/33-90)*Math.PI/180;
+  const p=document.createElement("div");p.className="pearl";p.id="p"+i;
+  p.style.left=(cx+r*Math.cos(a)-15)+"px";p.style.top=(cy+r*Math.sin(a)-15)+"px";
+  p.onclick=()=>add(true);layer.appendChild(p);
+ }
+}
+function paint(c){document.querySelectorAll(".pearl").forEach(p=>{p.className="pearl"+(c==="white"?"":" "+c)});document.querySelectorAll(".color").forEach(b=>b.classList.toggle("sel",b.dataset.c===c))}
+function show(){zikir.innerHTML=Z[si][0]+"<br><small>"+Z[si][1]+"</small>";target.textContent="daripada "+Z[si][2]}
+function highlight(i){
+  const b=document.querySelectorAll(".menu button")[i];
+  if(b) b.classList.add("done");
+}
+function beep(){
+ try{
+  voice ||= new(window.AudioContext||window.webkitAudioContext)();
+  if(voice.state==="suspended") voice.resume();
+  const now=voice.currentTime;
+  [659.25,783.99].forEach((freq,i)=>{
+    const o=voice.createOscillator(),g=voice.createGain();
+    o.type="sine";
+    o.frequency.setValueAtTime(freq,now+i*0.055);
+    g.gain.setValueAtTime(0.0001,now+i*0.055);
+    g.gain.exponentialRampToValueAtTime(0.055,now+i*0.055+0.018);
+    g.gain.exponentialRampToValueAtTime(0.0001,now+i*0.055+0.32);
+    o.connect(g);g.connect(voice.destination);
+    o.start(now+i*0.055);
+    o.stop(now+i*0.055+0.34);
+  });
+ }catch(e){}
+}
+function activePearl(i){document.querySelectorAll(".pearl").forEach(p=>p.classList.remove("active"));const p=document.getElementById("p"+i);if(p)p.classList.add("active")}
+function add(manual=false){
+ n++;
+ if(n>Z[si][2]) n=Z[si][2];
+
+ count.textContent=n;
+ activePearl((n-1)%33);
+ beep();
+
+ if(n>=Z[si][2]){
+  highlight(si);
+
+  if(auto){
+   status.textContent=Z[si][1]+" selesai ✓ • seterusnya...";
+   clearTimeout(timer);
+
+   timer=setTimeout(()=>{
+    si=(si+1)%Z.length;
+    n=0;
+    count.textContent=0;
+
+    document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".menu button")[si].classList.add("active");
+
+    show();
+    activePearl(0);
+    status.textContent="Mula "+Z[si][1]+" 🤍";
+
+    timer=setTimeout(tick,500);
+   },900);
+  }else{
+   status.textContent=Z[si][1]+" "+Z[si][2]+" kali selesai 🤍";
+  }
+ }else{
+  status.textContent=Z[si][1]+" • "+n+"/"+Z[si][2];
+ }
+}
+function tick(){if(!auto)return;add();timer=setTimeout(tick,Z[si][3])}
+function start(){auto=true;document.getElementById("autoBtn").textContent="⏸ Pause";status.textContent="Auto non-stop 🤍";tick()}
+function stop(){auto=false;clearTimeout(timer);document.getElementById("autoBtn").textContent="▶ Auto"}
+function choose(i){
+  stop();
+  document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("done"));
+  si=i;n=0;count.textContent=0;show();activePearl(0);
+}
+document.querySelectorAll(".menu button").forEach(b=>b.onclick=()=>{choose(+b.dataset.i);document.querySelectorAll(".menu button").forEach(x=>x.classList.remove("active"));b.classList.add("active")});
+document.getElementById("countBtn").onclick=()=>add(true);
+document.getElementById("autoBtn").onclick=()=>auto?stop():start();
+document.getElementById("resetBtn").onclick=()=>{stop();n=0;count.textContent=0;activePearl(0);status.textContent="Kiraan direset 🤍"};
+document.querySelectorAll(".color").forEach(b=>b.onclick=()=>paint(b.dataset.c));
+pearls();show();
+</script>
+</body>
+</html>
